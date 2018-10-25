@@ -5,15 +5,12 @@ services:
   ros-master:
     build: ./master
     image: ros-master
-    ports:
-    - 9090:9090
-    expose:
-    - 9090
-#    command: stdbuf -o L roslaunch rosbridge_server rosbridge_websocket.launch
     command: stdbuf -o L roscore
-  #
+
   ros-bridge:
     image: ros-master
+    ports:
+    - 9090:9090
     expose:
     - 9090
     environment:
@@ -26,9 +23,7 @@ services:
   package:
     build: ./package
     environment:
-    - "ROS_BRIDGE_URI=http://ros-bridge"
+    - "ROS_BRIDGE_URI=ros-bridge"
     command: python package.py
     depends_on:
-    - ros-bridge
-    links:
     - ros-bridge
