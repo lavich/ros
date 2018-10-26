@@ -30,11 +30,7 @@ services:
     - ros-master
 
   gazebo:
-    image: osrf/gazebo:gzweb8
-    expose:
-    - 11345
-    ports:
-    - 8080
+    image: osrf/gazebo:gzweb7
 
   package:
     build: ./package
