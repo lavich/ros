@@ -20,12 +20,21 @@ services:
     depends_on:
     - ros-master
 
+  tf2-web:
+    image: ros-master
+    environment:
+    - "ROS_MASTER_URI=http://ros-master:11311"
+    - "ROS_HOSTNAME=ros-tf2-web"
+    command: rosrun tf2_web_republisher tf2_web_republisher
+    depends_on:
+    - ros-master
+
   package:
     build: ./package
     environment:
     - "ROS_BRIDGE_URI=ros-bridge"
-#    command: python package.py
+    #    command: python package.py
     volumes:
-      - './package:/usr/src/app'
+    - './package:/usr/src/app'
     depends_on:
     - ros-bridge
